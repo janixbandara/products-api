@@ -12,21 +12,43 @@ class Product {
   + setPrice(price : double) : void
 }
 
+abstract class Product {
+- id : Long
+- name : String
+- price : double
++ {abstract} getSummary() : String
++ getName() : String
++ getPrice() : double
+}
+
 class DigitalProduct {
   - downloadUrl : String
   - fileSizeMB : double
   + getDownloadUrl() : String
 }
 
+interface Discountable {
+  + applyDiscount(rate : double) : void
+  + getDiscountedPrice() : double
+}
+
 class PhysicalProduct {
   - weightKg : double
   - dimensions : String
+  - downloadUrl : String
+  - fileSizeMB : double
+  + getSummary() : String
+  + applyDiscount(rate : double) : voi
   + getWeightKg() : double
 }
 
 class ProductService {
   - products : List<Product>
   - nextId : Long
+  - weightKg : double
+  - dimensions : String
+  + getSummary() : String
+  + applyDiscount(rate : double) : void
   + getAllProducts() : List<Product>
   + getProductById(id : Long) : Optional<Product>
   + addProduct(product : Product) : Product
@@ -52,4 +74,8 @@ ProductService --> Product
 Product <|-- DigitalProduct
 Product <|-- PhysicalProduct
 
+Discountable <|.. DigitalProduct
+Discountable <|.. PhysicalProduct
+
 @enduml
+
